@@ -5,18 +5,27 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" [routerLink]="['home']">Home</a>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['home']" routerLinkActive="active">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['precies']">Precies</a>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['precies']" routerLinkActive="active">Precies</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['protected']">Protected</a>
+        <li class="nav-item" routerLinkActive="active" *ngIf="auth.isAuthenticated()">
+          <a class="nav-link" [routerLink]="['protected']" routerLinkActive="active">Protected</a>
         </li>
       </ul>
       <span class="navbar-text">
-        Navbar text with an inline element
+        <button *ngIf="!auth.isAuthenticated()"
+          class="btn btn-outline-primary btn-sm" type="button"
+          (click)="login()">
+          Login
+        </button>
+        <button *ngIf="auth.isAuthenticated()" 
+          class="btn btn-outline-primary btn-sm" type="button"
+          (click)="logout()">
+          Logout
+        </button>
       </span>
     </div>
   </nav>

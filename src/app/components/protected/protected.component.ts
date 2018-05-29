@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,24 @@ import { Component, OnInit } from '@angular/core';
   styles: []
 })
 export class ProtectedComponent implements OnInit {
+  profile: any;
+  image: boolean;
+  constructor(private auth: AuthService) {
 
-  constructor() { }
+    this.image = false;
+
+  }
 
   ngOnInit() {
+    if (this.auth.userProfile) {
+      this.profile = this.auth.userProfile;
+      this.image = true;
+    } else {
+      this.auth.getProfile((err, profile) => {
+        this.profile = profile;
+        this.image = true;
+      });
+    }
   }
 
 }
